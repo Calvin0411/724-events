@@ -6,7 +6,7 @@ import { DataProvider } from "./contexts/DataContext";
 function App() {
   return (
     <DataProvider>
-      <Page />
+      
     </DataProvider>
   );
 }
