@@ -125,7 +125,7 @@ const Page = () => {
         />
       </div>
       <div className="col contact">
-        <h3>Contactez-nous</h3>
+        <h3>Contactez-nous</h3> 
         <address>45 avenue de la République, 75000 Paris</address>
         <div>01 23 45 67 89</div>
         <div>contact@724events.com</div>
