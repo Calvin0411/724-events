@@ -7,26 +7,26 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-  
-  // Tri des événements par date décroissante
-  const byDateDesc = data?.focus.sort(
-    (evtA, evtB) => (new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)
+
+  // Tri des événements par date croissante
+  const byDateAsc = data?.focus.sort(
+    (evtA, evtB) => new Date(evtA.date) - new Date(evtB.date)
   ) || [];
 
   // Fonction pour changer la diapositive
   const nextCard = () => {
-    setIndex((prevIndex) => (prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0));
+    setIndex((prevIndex) => (prevIndex < byDateAsc.length - 1 ? prevIndex + 1 : 0));
   };
 
   // Utilisation de setInterval pour changer de diapositive
   useEffect(() => {
     const intervalId = setInterval(nextCard, 5000);
     return () => clearInterval(intervalId); // Cleanup sur démontage
-  }, [byDateDesc.length]);
+  }, [byDateAsc.length]);
 
   return (
     <div className="SlideCardList">
-      {byDateDesc.map((event, idx) => (
+      {byDateAsc.map((event, idx) => (
         <div
           key={event.title} // Clé unique pour chaque diapositive
           className={`SlideCard SlideCard--${index === idx ? "display" : "hide"}`}
@@ -43,7 +43,7 @@ const Slider = () => {
       ))}
       <div className="SlideCard__paginationContainer">
         <div className="SlideCard__pagination">
-          {byDateDesc.map((e, radioIdx) => (
+          {byDateAsc.map((e, radioIdx) => (
             <input
               key={`${e.title}-Radio`} // Clé unique pour chaque bouton radio
               type="radio"
