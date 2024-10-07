@@ -1,32 +1,34 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useData } from "../../contexts/DataContext";
 import { getMonth } from "../../helpers/Date";
 
 import "./style.scss";
 
 const Slider = () => {
-  const { data } = useData(); 
+  const { data } = useData();
   const [index, setIndex] = useState(0);
-  const byDateAsc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) - new Date(evtB.date)
+  
+  // Tri des événements par date décroissante
+  const byDateDesc = data?.focus.sort(
+    (evtA, evtB) => (new Date(evtA.date) > new Date(evtB.date) ? -1 : 1)
   ) || [];
 
   // Fonction pour changer la diapositive
   const nextCard = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % byDateAsc.length);
+    setIndex((prevIndex) => (prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0));
   };
 
   // Utilisation de setInterval pour changer de diapositive
   useEffect(() => {
     const intervalId = setInterval(nextCard, 5000);
     return () => clearInterval(intervalId); // Cleanup sur démontage
-  }, [byDateAsc.length]);
+  }, [byDateDesc.length]);
 
   return (
     <div className="SlideCardList">
-      {byDateAsc.map((event, idx) => (
+      {byDateDesc.map((event, idx) => (
         <div
-          key={event.id} 
+          key={event.title} // Clé unique pour chaque diapositive
           className={`SlideCard SlideCard--${index === idx ? "display" : "hide"}`}
         >
           <img src={event.cover} alt={event.title} />
@@ -41,13 +43,13 @@ const Slider = () => {
       ))}
       <div className="SlideCard__paginationContainer">
         <div className="SlideCard__pagination">
-          {byDateAsc.map((_, radioIdx) => (
+          {byDateDesc.map((e, radioIdx) => (
             <input
-              key={byDateAsc[radioIdx].id} 
+              key={`${e.title}-Radio`} // Clé unique pour chaque bouton radio
               type="radio"
               name="radio-button"
-              checked={index === radioIdx}
-              onChange={() => setIndex(radioIdx)} 
+              checked={index === radioIdx} // check si l'index est égal à celui du bouton radio
+              onChange={() => setIndex(radioIdx)} // Gère la nouvelle image lors du click du bouton radio
             />
           ))}
         </div>
