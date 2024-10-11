@@ -22,14 +22,14 @@ const Page = () => {
       <Menu />
     </header>
     <main>
-      <section className="SliderContainer" id="nos-services">
+      <section className="SliderContainer">
         <Slider />
       </section>
       <section className="ServicesContainer">
-        <h2 className="Title">Nos services</h2>
+        <h2 className="Title"  id="nos-services">Nos services</h2>
         <p>Nous organisons des événements sur mesure partout dans le monde</p>
-        <div className="ListContainer">
-          <ServiceCard imageSrc="/images/priscilla-du-preez-Q7wGvnbuwj0-unsplash1.png">
+        <div className="ListContainer" >
+          <ServiceCard imageSrc="/images/priscilla-du-preez-Q7wGvnbuwj0-unsplash1.png" >
             <h3>Soirée d’entreprise</h3>
             Une soirée d’entreprise vous permet de réunir vos équipes pour un
             moment convivial afin de valoriser votre société en projetant une
@@ -94,8 +94,9 @@ const Page = () => {
           />
         </div>
       </section>
-      <div className="FormContainer" id="contact">
-        <h2 className="Title">Contact</h2>
+      <div className="FormContainer" >
+      <h2 className="Title" id="contact">Contact</h2>
+
         <Modal
           Content={
             <div className="ModalMessage--success">
@@ -108,7 +109,7 @@ const Page = () => {
           }
         >
           {({ setIsOpened }) => (
-            <Form
+            <Form 
               onSuccess={() => setIsOpened(true)}
               onError={() => null}
             />

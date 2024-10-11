@@ -18,9 +18,17 @@ const Menu = () => (
         <a href="#notre-equipe">Notre équipe</a>
       </li>
     </ul>
-    <Button title="contact" onClick={() => (window.document.location.hash = "#contact")}>
-      Contact
-    </Button>
+    <Button
+  title="contact"
+  onClick={() => {
+    window.location.hash = ""; // Réinitialise le hash temporairement
+    setTimeout(() => {
+      window.location.hash = "#contact"; // Revient au hash #contact
+    }, 1); // Petite pause pour que le navigateur prenne en compte le changement
+  }}
+>
+  Contact
+</Button>
   </nav>
 );
 
