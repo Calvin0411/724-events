@@ -21,14 +21,21 @@ const Menu = () => (
     <Button
   title="contact"
   onClick={() => {
-    window.location.hash = ""; // Réinitialise le hash temporairement
-    setTimeout(() => {
-      window.location.hash = "#contact"; // Revient au hash #contact
-    }, 1); // Petite pause pour que le navigateur prenne en compte le changement
+    const targetHash = "#contact";
+    if (window.location.hash !== targetHash) {
+      window.location.hash = targetHash; // Assure un changement direct vers le bon hash
+    } else {
+      // Si on est déjà sur le hash "contact", forcer le scroll en modifiant légèrement le hash
+      window.location.hash = "";
+      setTimeout(() => {
+        window.location.hash = targetHash;
+      }, 100); // Un délai un peu plus long pour forcer le navigateur à prendre en compte le changement
+    }
   }}
 >
   Contact
 </Button>
+
   </nav>
 );
 
